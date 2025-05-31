@@ -53,27 +53,30 @@ Note: Never commit your .env file to version control.
 ```hardhat.config.js```: Hardhat configuration file.
 
 ## Testing
+
 Run the tests locally using Hardhat's built-in network:
-    ```bash
-    npm hardhat test
-    ```
+
+```bash
+npm install
+```
 All tests should pass, verifying the contract functionality.
 
 ## Deployment
 To deploy the contract on the Sepolia testnet:
-        ```bash
-        npx hardhat run scripts/deploy.js --network sepolia
-        ```
 
+```bash
+npx hardhat run scripts/deploy.js --network sepolia
+```
 After deployment, the console will display the contract address.
 
 ## Interaction
 Use ```scripts/interact.js``` to call contract functions on a local or deployed contract.
 
 Run the script:
-        ```bash
-        npx hardhat run scripts/interact.js --network sepolia
-        ```
+
+```bash
+npx hardhat run scripts/interact.js --network sepolia 
+```
 
 ## Notes
 Make sure your wallet has enough Sepolia ETH. You can get test ETH from faucets such as:
