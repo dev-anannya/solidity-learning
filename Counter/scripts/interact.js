@@ -1,11 +1,11 @@
 const { ethers } = require("hardhat");
+require("dotenv").config();
 
 async function main() {
-  const Counter = await ethers.getContractFactory("Counter");
-  const counter = await Counter.deploy();
-  await counter.waitForDeployment();
+  const contractAddress = "0x476E2664665774f600d9b3DF96EAE6BE25Ba0DD3";
 
-  console.log("Counter deployed at:", counter.target);
+  const Counter = await ethers.getContractFactory("Counter");
+  const counter = await Counter.attach(contractAddress);
 
   let count = await counter.getCount();
   console.log("Initial count:", count.toString());
@@ -13,30 +13,34 @@ async function main() {
   console.log("Incrementing...");
   let tx = await counter.increment();
   await tx.wait();
+  console.log("Tx hash:", tx.hash);
 
   count = await counter.getCount();
   console.log("After increment:", count.toString());
 
-  console.log("Incrementing...");
-  let tx1 = await counter.increment();
+  console.log("Incrementing again...");
+  tx = await counter.increment();
   await tx.wait();
+  console.log("Tx hash:", tx.hash);
 
   count = await counter.getCount();
-  console.log("After increment:", count.toString());
+  console.log("After second increment:", count.toString());
 
   console.log("Decrementing...");
-  tx1 = await counter.decrement();
+  tx = await counter.decrement();
   await tx.wait();
+  console.log("Tx hash:", tx.hash);
 
   count = await counter.getCount();
   console.log("After decrement:", count.toString());
 
-  console.log("Decrementing...");
-  tx1 = await counter.decrement();
+  console.log("Decrementing again...");
+  tx = await counter.decrement();
   await tx.wait();
+  console.log("Tx hash:", tx.hash);
 
   count = await counter.getCount();
-  console.log("After decrement:", count.toString());
+  console.log("After second decrement:", count.toString());
 
   console.log("Trying to decrement below 0 (should fail)...");
   try {
