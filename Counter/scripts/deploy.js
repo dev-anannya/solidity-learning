@@ -1,4 +1,4 @@
-// scripts/deploy.js
+require("dotenv").config();
 
 async function main() {
   const [deployer] = await ethers.getSigners();
@@ -8,9 +8,9 @@ async function main() {
   const Counter = await ethers.getContractFactory("Counter");
   const counter = await Counter.deploy();
 
-  await counter.deployed();
+  await counter.waitForDeployment();
 
-  console.log("Counter deployed to:", counter.address);
+  console.log("Counter deployed to:", await counter.getAddress());
 }
 
 main()
